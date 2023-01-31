@@ -1,0 +1,8 @@
+timezone: UTC
+
++td-result-output-web-server:
+  td>: queries/sample.sql
+  database: sample_datasets
+  result_connection: your_connection_name
+  result_settings:
+    path_prefix: path/data.csv

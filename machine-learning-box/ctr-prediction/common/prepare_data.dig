@@ -1,0 +1,44 @@
++shuffle:
+  td>: ../queries/shuffle.sql
+  engine: presto
+  create_table: samples_shuffled
+
+# Uncomment this task for repeatable shuffling with consistent random seed:
+#+shuffle_repeatable:
+#  td>: ../queries/shuffle_hive.sql
+#  create_table: samples_shuffled
+
++split:
+  _parallel: true
+
+  +train:
+    td>: ../queries/split_train.sql
+    engine: presto
+    create_table: samples_train
+
+  +test:
+    td>: ../queries/split_test.sql
+    engine: presto
+    create_table: samples_test
+
++minmax:
+  +train:
+    td>: ../queries/minmax_train.sql
+    engine: presto
+    store_last_results: true
+
+  +test:
+    td>: ../queries/minmax_test.sql
+    engine: presto
+    store_last_results: true
+
++preprocess:
+  _parallel: true
+
+  +train:
+    td>: ../queries/preprocess_train.sql
+    create_table: train
+
+  +test:
+    td>: ../queries/preprocess_test.sql
+    create_table: test

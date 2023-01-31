@@ -1,0 +1,12 @@
+timezone: UTC
+
++td-result-output-sfdc:
+  td>: queries/sample.sql
+  database: sample_datasets
+  result_connection: your_connection_name
+  result_settings:
+    object: object_name
+    mode: append
+    concurrency_mode: parallel
+    retry: 2
+    split_records: 10000

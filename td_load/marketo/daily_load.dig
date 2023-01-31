@@ -1,0 +1,30 @@
+timezone: Asia/Tokyo
+
+schedule:
+  daily>: 02:00:00
+
+sla:
+  time: 08:00
+  +notice:
+    mail>: {data: Treasure Workflow Notification}
+    subject: Marketo Load workflow ias taking long time to finish
+    to: [me@example.com]
+
+_export:
+  marketo:
+    type: ["activity","lead"]
+    from_date: "${last_session_date}"
+  td:
+    dest_db: support
+    mode: append
+
++parallel_task:
+    for_each>: 
+      type: ${marketo.type}
+    _parallel: true
+    _do:
+      +parallel_subtask:
+        +load_data:
+          td_load>: config/daily_load_${type}.yml
+          database: ${td.dest_db}
+          table: ${type}

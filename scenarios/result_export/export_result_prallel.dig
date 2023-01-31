@@ -1,0 +1,44 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+  s3:
+    connection: MY_S3_CONNECTION
+    bucketname: MY_BUCKET_NAME
+    filepath: MY_FILE_PATH
+  tableau:
+    datasource: MY_DATA_SOURCE
+    connection: MY_TABLEAU_CONNECTION
+    site: MY_SITE
+    project: MY_PROJECT
+    mode: append
+
++select_data:
+  td>: queries/sample.sql
+
++paralellExport:
+  _parallel: true
+
+  +exportToS3:
+    td_result_export>:
+    job_id: ${td.last_job.id}
+    result_connection: ${s3.connection} 
+    result_settings:
+      bucket: ${s3.bucketname}
+      path: ${s3.filepath}
+
+  +exportToTableau:
+    td_result_export>:
+    job_id: ${td.last_job.id}
+    result_connection: ${tableau.connection}
+    result_settings:
+      datasource: ${tableau.datasource}
+      site: ${tableau.site}
+      project: ${tableau.project}
+      mode: ${tableau.mode}
++teardown:
+  echo>: finish ${session_time}
+
++teardown:
+  echo>: finish ${session_time}

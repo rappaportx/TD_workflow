@@ -1,0 +1,22 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+  s3:
+    connection: MY_S3_CONNECTION
+    bucketname: MY_BUCKET_NAME
+    filepath: MY_FILE_PATH
+
++select_data:
+  td>: queries/sample.sql
+
++export_to_s3:
+  td_result_export>:
+  job_id: ${td.last_job.id}
+  result_connection: ${s3.connection} 
+  result_settings:
+    bucket: ${s3.bucketname}
+    path: ${s3.filepath}
++teardown:
+  echo>: finish ${session_time}

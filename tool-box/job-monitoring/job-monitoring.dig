@@ -1,0 +1,12 @@
+schedule:
+  minutes_interval>: 5
+
++job-monitoring:
+    docker:
+        image: "digdag/digdag-python:3.9"
+    py>: job-monitoring.monitoring
+    database: ${secret:td.database}
+    table: ${secret:td.table}
+    _env:
+        td_apikey: ${secret:td.apikey}
+        td_endpoint: ${secret:td.apiserver}

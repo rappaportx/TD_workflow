@@ -1,0 +1,15 @@
+timezone: UTC
+
++td-result-output-sftp:
+  td>: queries/sample.sql
+  database: sample_datasets
+  result_connection: your_connections_name
+  result_settings:
+    user_directory_is_root: true
+    path_prefix: path/file_${moment(session_time).format("YYYYMMDD")}.csv
+    format: csv
+    header_line: true
+    delimiter: ","
+    quote_policy: MINIMAL
+    null_string: ""
+    newline: CRLF

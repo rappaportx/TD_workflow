@@ -1,0 +1,13 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+
++td-result-into-redshift:
+  td>: queries/sample.sql
+  result_connection: your_connections_name
+  result_settings:
+    database: sample_database
+    table: sample_table
+    mode: append

@@ -1,0 +1,6 @@
+.idea
+.venv
+.vscode
+tfmodels
+*.tar.gz
+*.h5

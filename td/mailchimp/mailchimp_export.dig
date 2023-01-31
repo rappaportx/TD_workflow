@@ -1,0 +1,19 @@
+timezone: Asia/Tokyo
+
+_export:
+  td:
+    engine: presto
+    database: sample_datasets
+
++extract_email:
+  td>: extract_email.sql
+  result_connection: your_connections_name
+  result_settings:
+    list_id: xxxxxxxx
+    email_column: email
+    fname_column: first_name
+    lname_column: last_name
+    update_existing: true
+    grouping_columns: ["usage_segment"]
+    replace_interests: false
+    double_optin: false

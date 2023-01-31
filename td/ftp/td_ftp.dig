@@ -1,0 +1,16 @@
+timezone: UTC
+
++td-result-output-ftp
+  td>: queries/sample.sql
+  database: sample_datasets
+  result_connection: your_connections_name
+  result_settings:
+    path_prefix: /path/file_${moment(session_time).format("YYYYMMDD")}
+    sequence_format: ""
+    file_ext: .csv
+    format: csv
+    compression: None
+    header_line: true
+    delimiter: ","
+    null_string: ""
+    newline: CRLF

@@ -1,0 +1,31 @@
+_export:
+  !include : config/general.yml
+  !include : config/fm.yml
+  td:
+    apikey: ${apikey}
+    database: ${target}
+    engine: hive
+
++prepare:
+  call>: common/prepare_data.dig
+
++main:
+  +fm_train:
+    td>: queries/fm_train.sql
+    create_table: fm_model
+
+  +compute_downsampling_rate:
+    td>: queries/downsampling_rate.sql
+    engine: presto
+    store_last_results: true
+
+  +fm_predict:
+    td>: queries/fm_predict.sql
+    create_table: prediction
+
+  +evaluate:
+    td>: queries/evaluate.sql
+    store_last_results: true
+
+  +show_accuracy:
+    echo>: "Logloss (smaller is better): ${td.last_results.logloss}"

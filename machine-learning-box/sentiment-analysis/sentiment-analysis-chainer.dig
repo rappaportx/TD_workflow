@@ -1,0 +1,17 @@
+_export:
+  !include : config/params.yml
+
++preparation:
+  call>: common/prepare.dig
+
+# Store prediction results to TD by using pre-trained Chainer model
++predict:
+  py>: py_scripts.predict_chainer.predict_chainer
+  database: ${td.database}
+  input_table: "${test_table}_shuffled"
+  output_table: "test_predicted_polarities_chainer"
+  docker:
+    image: 'digdag/digdag-python:3.9'
+  _env:
+    TD_API_KEY: ${secret:td.apikey}
+    TD_API_SERVER: ${secret:td.apiserver}

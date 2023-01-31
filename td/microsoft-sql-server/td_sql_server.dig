@@ -1,0 +1,15 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+
++td-result-into-sqlserver:
+  td>: queries/sample.sql
+  result_connection: your_connections_name
+  result_settings:
+    port: port_number
+    database: database_name
+    table: table_name
+    batch_size: 16777216
+    mode: insert

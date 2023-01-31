@@ -1,0 +1,31 @@
+timezone: UTC
+
+schedule:
+  daily>: 02:00:00
+
+sla:
+  time: 08:00
+  +notice:
+    mail>: {data: Treasure Workflow Notification}
+    subject: This workflow is taking long time to finish
+    to: [me@example.com]
+
+_export:
+  td:
+    database: sample_db
+    engine: presto
+
++task1:
+  td>: queries/daily_open.sql
+  create_table: daily_open
+
++task2:
+  td>: queries/monthly_open.sql
+  create_table: monthly_open
+
++my_group_task:
+  _parallel: True
+  +subtask1:
+    td>: queries/nasdaq_count.sql
+  +subtask2:
+    td>: queries/nasdaq_count.sql

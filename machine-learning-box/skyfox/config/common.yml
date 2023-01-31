@@ -1,0 +1,8 @@
+td:
+  database: skyfox
+  endpoint: api.treasuredata.com
+s3:
+  bucket: YOUR BUCKET NAME
+skyfox:
+  auth_endpoint: YOUR AUTH ENDPOINT
+  endpoint: YOUR ENDPOINT

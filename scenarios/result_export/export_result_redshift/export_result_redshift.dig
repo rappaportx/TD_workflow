@@ -1,0 +1,24 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+  redshift: 
+    connection: MY_REMOTE_CONNECTION
+    dbname: MY_DB_NAME
+    table: MY_TABLE_NAME
+    mode: append
+
++select_data:
+  td>: queries/sample.sql
+
++export_to_redshift:
+  td_result_export>:
+  job_id: ${td.last_job.id}
+  result_connection: ${redshift.connection}
+  result_settings:
+    database: ${redshift.dbname}
+    table: ${redshift.table}
+    mode: ${redshift.mode}
++teardown:
+  echo>: finish ${session_time}

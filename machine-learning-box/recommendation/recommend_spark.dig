@@ -1,0 +1,14 @@
+_export:
+  !include : config/params.yml
+
++train_and_predict:
+  py>: py_scripts.recommend.spark_als
+  database: ${td.database}
+  source_table: ${td.table}
+  target_table: "recommendation_als"
+  item_size: ${k}
+  docker:
+    image: "digdag/digdag-python:3.9"
+  _env:
+    TD_API_KEY: ${secret:td.apikey}
+    TD_API_SERVER: ${secret:td.apiserver}

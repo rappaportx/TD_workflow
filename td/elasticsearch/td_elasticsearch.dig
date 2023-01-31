@@ -1,0 +1,14 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+
++td-result-into-elasticsearch:
+  td>: queries/sample.sql
+  result_connection: your_connections_name
+  result_settings:
+    mode: insert
+    index: index
+    index_type: index_type
+

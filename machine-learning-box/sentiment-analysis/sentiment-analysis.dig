@@ -1,0 +1,34 @@
+_export:
+  !include : config/params.yml
+
++preparation:
+  call>: common/prepare.dig
+
+# Train with pre-trained model on TensorFlow Hub and store prediction results to TD
++train:
+  py>: py_scripts.sentiment.run
+  database: ${td.database}
+  train_table: ${train_table}
+  test_table: ${test_table}
+  docker:
+    image: 'digdag/digdag-python:3.9'
+  _env:
+    TD_API_KEY: ${secret:td.apikey}
+    TD_API_SERVER: ${secret:td.apiserver}
+    AWS_ACCESS_KEY_ID: ${secret:s3.access_key_id}
+    AWS_SECRET_ACCESS_KEY: ${secret:s3.secret_access_key}
+    S3_BUCKET: ${secret:s3.bucket}
+
+# Fetch the pre-trained model from S3, then store prediction results to TD
+#+predict:
+#  py>: py_scripts.predict.run
+#  database: ${td.database}
+#  input_table: ${test_table}_shuffled
+#  docker:
+#    image: 'digdag/digdag-python:3.9'
+#  _env:
+#    TD_API_KEY: ${secret:td.apikey}
+#    TD_API_SERVER: ${secret:td.apiserver}
+#    AWS_ACCESS_KEY_ID: ${secret:s3.access_key_id}
+#    AWS_SECRET_ACCESS_KEY: ${secret:s3.secret_access_key}
+#    S3_BUCKET: ${secret:s3.bucket}

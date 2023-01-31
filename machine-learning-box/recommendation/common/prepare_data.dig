@@ -1,0 +1,14 @@
++shuffle:
+  td>: ../queries/shuffle.sql
+  create_table: ratings_mf
+
++split:
+  _parallel: true
+
+  +train:
+    td>: ../queries/split_train.sql
+    create_table: training_mf
+
+  +test:
+    td>: ../queries/split_test.sql
+    create_table: testing_mf
